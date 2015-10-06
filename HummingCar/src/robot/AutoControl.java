@@ -29,7 +29,7 @@ private int max_speed = 150;
     }
     
     //run robot automatically
-    public void start(){
+    public void start() throws InterruptedException{
         
         if (!car.frontCollision()){
             car.setSpeed(max_speed);
@@ -40,14 +40,12 @@ private int max_speed = 150;
         else{
             resolveTurnRight();
         }
- 
-        Timer t = new Timer("Main timer", false);
-        TimerTask main_task = new TimerTask(){
+        boolean loop = true;
+        while (loop){
 
-            @Override
-            public void run() {
+                Thread.sleep(556l);
                 if(car.backCollision() || car.frontCollision()){
-                    resolveTurnRight();
+                    resolve();
                 }
                 
                     
@@ -55,8 +53,7 @@ private int max_speed = 150;
                 System.out.println("Main Time: " + run_time.getValue());
             }
             
-        };    
-        t.scheduleAtFixedRate(main_task, 1000, 100);
+       
                 
                 
             
@@ -66,8 +63,6 @@ private int max_speed = 150;
         
         
     }
-    
-    //turns right until path is available
     public void resolveTurnRight(){
         //boolean clear = false;
         
@@ -113,6 +108,39 @@ private int max_speed = 150;
             
         };
         resolver.scheduleAtFixedRate(rrt, 5, 100);
+        
+    }
+    
+    //turns right until path is available
+    public void resolve() throws InterruptedException{
+        //boolean clear = false;
+        
+        turnRight();
+        
+
+
+        boolean clear = false;
+        while(!clear){
+            
+            
+            if(!car.frontCollision()){
+                car.setSpeed(max_speed);
+                clear = true;
+
+            }
+
+            else if(!car.backCollision()){
+                car.setSpeed(-max_speed);
+                clear = true;
+            }
+
+            else{
+                turnRight();
+            }
+            Thread.sleep(556l);
+
+        }
+     
         
     }
     

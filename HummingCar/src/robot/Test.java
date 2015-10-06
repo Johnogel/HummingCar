@@ -8,9 +8,7 @@ package robot;
 
 
 import edu.cmu.ri.createlab.hummingbird.HummingbirdRobot;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
+
 
 
 /**
@@ -19,7 +17,7 @@ import javax.swing.Timer;
  */
 public class Test{
 public static boolean loop;   
-    public static void main(String args[]){
+    public static void main(String args[]) throws InterruptedException{
         
         HummingbirdRobot hummingbird = new HummingbirdRobot();
         Controller car = new Controller(hummingbird);
