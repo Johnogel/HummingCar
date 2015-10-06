@@ -43,15 +43,15 @@ private int max_speed = 150;
         boolean loop = true;
         while (loop){
 
-                Thread.sleep(556l);
-                if(car.backCollision() || car.frontCollision()){
-                    resolve();
-                }
-                
-                    
-                run_time.increment();
-                System.out.println("Main Time: " + run_time.getValue());
+            Thread.sleep(556l);
+            if(car.backCollision() || car.frontCollision()){
+                resolve();
             }
+
+
+            run_time.increment();
+            System.out.println("Main Time: " + run_time.getValue());
+        }
             
        
                 
@@ -122,8 +122,11 @@ private int max_speed = 150;
         boolean clear = false;
         while(!clear){
             
+            if(car.frontCollision() || car.backCollision()){
+                turnRight();
+            }
             
-            if(!car.frontCollision()){
+            else if(!car.frontCollision()){
                 car.setSpeed(max_speed);
                 clear = true;
 
@@ -134,9 +137,7 @@ private int max_speed = 150;
                 clear = true;
             }
 
-            else{
-                turnRight();
-            }
+            
             Thread.sleep(556l);
 
         }
