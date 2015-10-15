@@ -42,7 +42,7 @@ private int values_2[] = {0, 255, 0, 255};
             
             for(int i = 1; i <=4; i++){
 
-                car.getRobot().setLED(i, gen.nextInt(255));
+                //car.getRobot().setLED(i, gen.nextInt(255));
             }
 
             Thread.sleep(60l);
@@ -92,11 +92,11 @@ private int values_2[] = {0, 255, 0, 255};
             
             turnRight(sweep);
             sweep += 3.2;
-            car.getRobot().setLEDs(mask, values_1);
+            //car.getRobot().setLEDs(mask, values_1);
             if(car.frontCollision()){
                 turnLeft(sweep);
                 sweep += 3.2;
-                car.getRobot().setLEDs(mask, values_2);
+                //car.getRobot().setLEDs(mask, values_2);
             }
         }
         

@@ -17,13 +17,17 @@ private Controller car;
 private ExecutorService executor;
     public CarTaskManager(Controller car){
         this.car = car;
-        executor = Executors.newCachedThreadPool();
+        
         
     }
     
-    public void initialize(){
+    public void initialize() throws InterruptedException{
         
+        Thread leds = new LEDTask(car, 1, 500);
+        leds.start();
         
+        AutoControl auto = new AutoControl(car);
+        auto.start();
         
     }
     

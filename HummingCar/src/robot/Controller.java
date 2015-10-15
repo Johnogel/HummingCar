@@ -45,7 +45,7 @@ private boolean[] sensor_switches;
             sensor_switches[i] = false;
         }
         
-        front_collision_max = 50;
+        front_collision_max = 40;
         back_collision_max = 70;
         
         turning_left = false;
@@ -150,7 +150,8 @@ private boolean[] sensor_switches;
     
     public boolean frontCollision(){
         if (car.getSensorValue(FRONT_SENSOR) > front_collision_max){
-            System.out.println("FRONT COLLISION");
+            
+            System.out.println("FRONT COLLISION: " + car.getSensorValue(FRONT_SENSOR));
         
             return true;
         }

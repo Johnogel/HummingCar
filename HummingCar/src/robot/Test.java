@@ -32,12 +32,15 @@ public static boolean loop;
 //        Thread.sleep(100000);
 //        car.stop();
         
-        ExecutorService executor = Executors.newCachedThreadPool();
+        //ExecutorService executor = Executors.newCachedThreadPool();
         
         System.out.println("About to start\n");
-        auto.start();
+        //auto.start();
         
-        hummingbird.setLED(4, 0);
+        CarTaskManager manager = new CarTaskManager(car);
+        manager.initialize();
+        
+        //hummingbird.setLED(4, 0);
         //car.turnRight();
         //Thread.sleep(1000000);
         //car.stop();
