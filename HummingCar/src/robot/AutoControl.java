@@ -1,10 +1,7 @@
 package robot;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.TimerTask;
-import java.util.Timer;
+import java.util.Random;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +16,11 @@ import java.util.Timer;
 public class AutoControl{
 private Controller car;
 private intValue run_time; 
-private int max_speed = 150;
+private int max_speed = 255;
+private boolean mask[] = {true, true, true, true};
+private int values_1[] = {255, 0, 255, 0};
+
+private int values_2[] = {0, 255, 0, 255};
 
     public AutoControl(Controller car){
         
@@ -31,39 +32,31 @@ private int max_speed = 150;
     //run robot automatically
     public void start() throws InterruptedException{
         
-        if (!car.frontCollision()){
-            car.setSpeed(max_speed);
-        }
-        else if(!car.backCollision()){
-            car.setSpeed(-max_speed);
-        }
-        else{
-            resolveTurnRight();
-        }
+        
+        car.setSpeed(max_speed);
+        Random gen = new Random();
+
         boolean loop = true;
         while (loop){
+            
+            
+            for(int i = 1; i <=4; i++){
 
-            Thread.sleep(556l);
-            if(car.backCollision() || car.frontCollision()){
-                resolve();
+                car.getRobot().setLED(i, gen.nextInt(255));
             }
 
+            Thread.sleep(60l);
+            resolve();
 
             run_time.increment();
+            
             System.out.println("Main Time: " + run_time.getValue());
+            
         }
-            
-       
-                
-                
-            
-        
-        
-        
-        
+   
         
     }
-    public void resolveTurnRight(){
+    public void resolveTurnRight() throws InterruptedException{
         //boolean clear = false;
         
         turnRight();
@@ -84,69 +77,47 @@ private int max_speed = 150;
 //                turnRight();
 //            }
 //        }
-        Timer resolver = new Timer("Resolve Right Timer", false);
-        TimerTask rrt = new TimerTask(){
-            boolean clear = false;
-            @Override
-            public void run() {
-                if(!car.frontCollision()){
-                    car.setSpeed(max_speed);
-                    resolver.cancel();
-                
-                }
-
-                else if(!car.backCollision()){
-                    car.setSpeed(-max_speed);
-                    resolver.cancel();
-                }
-
-                else{
-                    turnRight();
-                }
-                
-            }
-            
-        };
-        resolver.scheduleAtFixedRate(rrt, 5, 100);
-        
+    
     }
     
     //turns right until path is available
     public void resolve() throws InterruptedException{
-        //boolean clear = false;
         
-        turnRight();
+        long sweep = 2;
         
-
-
-        boolean clear = false;
-        while(!clear){
+        while(car.frontCollision())
+        {
             
-            if(car.frontCollision() || car.backCollision()){
-                turnRight();
-            }
             
-            else if(!car.frontCollision()){
-                car.setSpeed(max_speed);
-                clear = true;
-
-            }
-
-            else if(!car.backCollision()){
-                car.setSpeed(-max_speed);
-                clear = true;
-            }
-
             
-            Thread.sleep(556l);
-
+            turnRight(sweep);
+            sweep += 3.2;
+            car.getRobot().setLEDs(mask, values_1);
+            if(car.frontCollision()){
+                turnLeft(sweep);
+                sweep += 3.2;
+                car.getRobot().setLEDs(mask, values_2);
+            }
         }
+        
+        car.setSpeed(max_speed);
+        
+        
+       
+        
+      
+        
+            
+            
+            
+        //Thread.sleep(598l);
+        
      
         
     }
     
     //turns left until path is available
-    public void resolveTurnLeft(){
+    public void resolveTurnLeft() throws InterruptedException{
         boolean clear = false;
         
         turnLeft();
@@ -172,56 +143,58 @@ private int max_speed = 150;
     }
     
     
-    public void turnRight(){
+    public void turnRight() throws InterruptedException{
         
-        intValue time = new intValue(0);
+        
         car.turnRight();
-        Timer right_timer = new Timer("Right Timer", false);
-        TimerTask right_task = new TimerTask()
-        {
-            
-            @Override
-            public void run(){
-                
-                time.increment();
-                
-                //stops turning
-                if(time.getValue() > 5){
-                    car.stop();
-                    
-                    right_timer.cancel();
-                }              
-                System.out.println("Right Time "+ time.getValue());
-            }
-        };
-        right_timer.scheduleAtFixedRate(right_task, 1000, 1000);
+        
+        long delay = Math.abs(car.getSpeed()*3);
+        
+        Thread.sleep(delay);
+        //stops turning
+        
+       
+        
         
     }
     
-    public void turnLeft(){
-        
-        intValue time = new intValue(0);
+    public void turnLeft() throws InterruptedException{
+
         car.turnLeft();
-        Timer left_timer = new Timer("Left Timer", false);
-        TimerTask left_task = new TimerTask()
-        {
+        
+        long delay = Math.abs(car.getSpeed()*3);
+        
+        Thread.sleep(delay);
+     
+    }
+
+   
+    
+
+    public void turnRight(long sweep) throws InterruptedException{
+        
+        
+        car.turnRight();
+        
+        long delay = Math.abs(car.getSpeed()*sweep);
+        
+        Thread.sleep(delay);
+        //stops turning
+        
+       
+        
+        
+    }
+    
+    public void turnLeft(long sweep) throws InterruptedException{
+        
+        
             
-            @Override
-            public void run(){
-                
-                time.increment();
-                
-                //stops turning
-                if(time.getValue() > 5){
-                    
-                    car.stop();
-                    left_timer.cancel();
-                    
-                }              
-                System.out.println("Left Time "+ time.getValue());
-            }
-        };
-        left_timer.scheduleAtFixedRate(left_task, 1000, 1000);
+        car.turnLeft();
+        
+        long delay = Math.abs(car.getSpeed()*sweep);
+        
+        Thread.sleep(delay);
      
     }
 

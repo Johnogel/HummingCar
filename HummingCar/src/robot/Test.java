@@ -8,6 +8,9 @@ package robot;
 
 
 import edu.cmu.ri.createlab.hummingbird.HummingbirdRobot;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 
@@ -21,10 +24,22 @@ public static boolean loop;
         
         HummingbirdRobot hummingbird = new HummingbirdRobot();
         Controller car = new Controller(hummingbird);
+        
         AutoControl auto = new AutoControl(car);
         
+        Random gen = new Random();
+//        hummingbird.setMotorVelocity(1, 100);
+//        Thread.sleep(100000);
+//        car.stop();
+        
+        ExecutorService executor = Executors.newCachedThreadPool();
+        
+        System.out.println("About to start\n");
         auto.start();
         
+        hummingbird.setLED(4, 0);
+        //car.turnRight();
+        //Thread.sleep(1000000);
         //car.stop();
 //        intValue time = new intValue(0);
 //        ActionListener listener = new ActionListener()
