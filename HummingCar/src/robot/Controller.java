@@ -45,7 +45,7 @@ private boolean[] sensor_switches;
             sensor_switches[i] = false;
         }
         
-        front_collision_max = 40;
+        front_collision_max = 70;
         back_collision_max = 70;
         
         turning_left = false;

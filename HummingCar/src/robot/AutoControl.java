@@ -18,6 +18,7 @@ private Controller car;
 private intValue run_time; 
 private int max_speed = 255;
 private boolean mask[] = {true, true, true, true};
+
 private int values_1[] = {255, 0, 255, 0};
 
 private int values_2[] = {0, 255, 0, 255};
@@ -87,15 +88,15 @@ private int values_2[] = {0, 255, 0, 255};
         
         while(car.frontCollision())
         {
-            
-            
-            
+
             turnRight(sweep);
-            sweep += 3.2;
+            sweep += 2.2;
             //car.getRobot().setLEDs(mask, values_1);
+            
+            
             if(car.frontCollision()){
                 turnLeft(sweep);
-                sweep += 3.2;
+                sweep += 2.2;
                 //car.getRobot().setLEDs(mask, values_2);
             }
         }

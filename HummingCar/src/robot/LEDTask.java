@@ -71,7 +71,7 @@ private int LED_state;
     public void forwardLEDs(){
         
         try {
-                Thread.sleep(delay);
+                
                 
                 car.setLED(LED_state, 200);
                 for(int i = 1; i <= 4; i++){
@@ -85,6 +85,7 @@ private int LED_state;
                     LED_state = 1;
                 }
                 
+                this.sleep(delay);
                 
                 
             } catch (InterruptedException ex) {
@@ -95,7 +96,7 @@ private int LED_state;
     
     public void backwardLEDs(){
         try {
-                this.sleep(delay);
+                
                 
                 car.setLED(LED_state, 200);
                 for(int i = 1; i <= 4; i++){
@@ -108,7 +109,7 @@ private int LED_state;
                 if(LED_state < 1){
                     LED_state = 4;
                 }
-                
+                this.sleep(delay);
                 
                 
             } catch (InterruptedException ex) {
@@ -123,11 +124,22 @@ private int LED_state;
     
     public void turningRightLEDs(){
         try {
-                this.sleep(delay);
                 
-                car.setLED(LED_state, 200);
+               
+                
+                //car.setLED(LED_state, 200);
                 for(int i = 1; i <= 4; i++){
-                    if(i != LED_state && ((i != LED_state + 2)||(i != LED_state - 2))){
+                    if(i == LED_state || ((i == LED_state + 2)||(i == LED_state - 2))){
+                        System.out.println("LED -- RIGHT");
+                        car.setLED(i, 200);
+                        if (i + 2 <= 4){
+                            car.setLED(i+2, 200);
+                        }
+                        else{
+                            car.setLED(i-2, 200);
+                        }
+                    }
+                    else{
                         car.setLED(i, 0);
                     }
                 }
@@ -137,7 +149,7 @@ private int LED_state;
                     LED_state = 1;
                 }
                 
-                
+                this.sleep(delay);
                 
             } catch (InterruptedException ex) {
                 Logger.getLogger(LEDTask.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,21 +161,33 @@ private int LED_state;
     public void turningLeftLEDs(){
         
         try {
-                this.sleep(delay);
                 
-                car.setLED(LED_state, 200);
+                
+                
+                //car.setLED(LED_state, 200);
                 for(int i = 1; i <= 4; i++){
-                    if(i != LED_state && ((i != LED_state + 2)||(i != LED_state - 2))){
+                    if(i == LED_state || ((i == LED_state + 2)||(i == LED_state - 2))){
+                        System.out.println("LED -- LEFT");
+                        car.setLED(i, 200);
+                        if (i + 2 <= 4){
+                            car.setLED(i+2, 200);
+                        }
+                        else{
+                            car.setLED(i-2, 200);
+                        }
+                    }
+                    else{
                         car.setLED(i, 0);
                     }
                 }
+                
                 
                 LED_state += 1;
                 if(LED_state > 4){
                     LED_state = 1;
                 }
                 
-                
+                this.sleep(delay);
                 
             } catch (InterruptedException ex) {
                 Logger.getLogger(LEDTask.class.getName()).log(Level.SEVERE, null, ex);
