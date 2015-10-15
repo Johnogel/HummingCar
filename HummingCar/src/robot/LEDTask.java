@@ -5,26 +5,35 @@
  */
 package robot;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  *
  * @author Johnogel
  */
-public class CarTaskManager {
+public class LEDTask implements Runnable{
 private Controller car;
-private ExecutorService executor;
-    public CarTaskManager(Controller car){
+    
+    public LEDTask(Controller car){
+        
         this.car = car;
-        executor = Executors.newCachedThreadPool();
         
     }
     
-    public void initialize(){
+    @Override
+    public void run(){
         
         
         
     }
     
+    public void updateLEDs(){
+        switch (car.getState()){
+            case Controller.STOPPED:
+                
+                
+        }
+    }
+    
+    public void forwardLEDs(){
+        
+    }
 }

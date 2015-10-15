@@ -20,7 +20,14 @@ public class Controller implements KeyListener{
 private HummingbirdRobot car;
 private int speed;
 private boolean turning_right, turning_left, stopped, moving_forward, moving_backward;
+public static final int 
+    TURNING_LEFT = 0, 
+    TURNING_RIGHT = 1, 
+    STOPPED = 2, 
+    MOVING_FORWARD = 3, 
+    MOVING_BACKWARD = 4;
 
+private int state = STOPPED;
 
 private int[] sensor_values;
 public static int FRONT_SENSOR = 1, BACK_SENSOR = 2, MAX_SPEED = 255;
@@ -58,7 +65,15 @@ private boolean[] sensor_switches;
         return speed;
     }
     
-    public void setAction(String action){
+    public void setLED(int id, int intensity){
+        car.setLED(id, intensity);
+    }
+    
+    public void setLEDs(boolean[] mask, int[] intensities){
+        car.setLEDs(mask, intensities);
+    }
+    
+    public void setAction(int action){
         
         //sets boolean values for information for sensors
         
@@ -74,23 +89,28 @@ private boolean[] sensor_switches;
         
         switch (action){
             
-            case "stopped":
+            case STOPPED:
+                state = STOPPED;
                 stopped = true;
                 break;
                 
-            case "moving_backward":
+            case MOVING_BACKWARD:
+                state = MOVING_BACKWARD;
                 moving_backward = true;
                 break;
                 
-            case "moving_forward":
+            case MOVING_FORWARD:
+                state = MOVING_FORWARD;
                 moving_forward = true;
                 break;
                 
-            case "turning_right":
+            case TURNING_RIGHT:
+                state = TURNING_RIGHT;
                 turning_right = true;
                 break;
                 
-            case "turning_left":
+            case TURNING_LEFT:
+                state = TURNING_LEFT;
                 turning_left = true;
                 break;
             
@@ -98,6 +118,9 @@ private boolean[] sensor_switches;
                 break;
                 
         }
+    }
+    public int getState(){
+        return state;
     }
     
     public boolean isStopped(){
@@ -143,14 +166,17 @@ private boolean[] sensor_switches;
     }
     
     public void turnRight(){
+        
         System.out.println("(RIGHT TURN) Speed: " + speed);
         
         int speeds[] = {-Math.abs(speed), Math.abs(speed)};
+        
         boolean motors[] = {true, true};
         
-        setAction("turning_right");
+        setAction(TURNING_RIGHT);
         
         car.setMotorVelocities(motors, speeds);
+        
     }
     
     public void turnLeft(){
@@ -159,7 +185,7 @@ private boolean[] sensor_switches;
         
         boolean motors[] = {true, true};
         
-        setAction("turning_left");
+        setAction(TURNING_LEFT);
         
         car.setMotorVelocities(motors, speeds);
     
@@ -171,7 +197,7 @@ private boolean[] sensor_switches;
         System.out.println("STOP");
         int speeds[] = {0, 0};
         boolean motors[] = {true, true};
-        setAction("stopped");
+        setAction(STOPPED);
         this.speed = 0;
         car.setMotorVelocities(motors, speeds);
     }
@@ -184,19 +210,19 @@ private boolean[] sensor_switches;
         
         if(speed < 0){
             
-            setAction("moving_backward");
+            setAction(MOVING_BACKWARD);
             
         }
         
         else if (speed > 0){
             
-            setAction("moving_forward");
+            setAction(MOVING_FORWARD);
             
         }
         
         else{
             
-            setAction("stopped");
+            setAction(STOPPED);
             
         }
         
