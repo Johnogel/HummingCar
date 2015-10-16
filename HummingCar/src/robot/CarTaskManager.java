@@ -23,10 +23,12 @@ private ExecutorService executor;
     
     public void initialize() throws InterruptedException{
         
-        Thread leds = new LEDTask(car, 1, 300);
+        Thread leds = new Thread(new LEDTask(car, 1, 30));
+        
         leds.start();
         
         AutoControl auto = new AutoControl(car);
+        
         auto.start();
         
     }

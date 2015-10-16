@@ -90,13 +90,13 @@ private int values_2[] = {0, 255, 0, 255};
         {
 
             turnRight(sweep);
-            sweep += 2.2;
+            sweep += 1.5;
             //car.getRobot().setLEDs(mask, values_1);
             
             
             if(car.frontCollision()){
                 turnLeft(sweep);
-                sweep += 2.2;
+                sweep += 1.5;
                 //car.getRobot().setLEDs(mask, values_2);
             }
         }

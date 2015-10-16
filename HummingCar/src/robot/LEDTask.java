@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Johnogel
  */
-public class LEDTask extends Thread implements Runnable {
+public class LEDTask implements Runnable {
 private Controller car;
 private long delay;
 public static final int 
@@ -71,8 +71,7 @@ private int LED_state;
     public void forwardLEDs(){
         
         try {
-                
-                
+   
                 car.setLED(LED_state, 200);
                 for(int i = 1; i <= 4; i++){
                     if(i != LED_state){
@@ -85,7 +84,7 @@ private int LED_state;
                     LED_state = 1;
                 }
                 
-                this.sleep(delay);
+                Thread.sleep(delay);
                 
                 
             } catch (InterruptedException ex) {
@@ -109,7 +108,7 @@ private int LED_state;
                 if(LED_state < 1){
                     LED_state = 4;
                 }
-                this.sleep(delay);
+                Thread.sleep(delay);
                 
                 
             } catch (InterruptedException ex) {
@@ -149,7 +148,7 @@ private int LED_state;
                     LED_state = 1;
                 }
                 
-                this.sleep(delay);
+                Thread.sleep(delay);
                 
             } catch (InterruptedException ex) {
                 Logger.getLogger(LEDTask.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,7 +186,7 @@ private int LED_state;
                     LED_state = 1;
                 }
                 
-                this.sleep(delay);
+                Thread.sleep(delay);
                 
             } catch (InterruptedException ex) {
                 Logger.getLogger(LEDTask.class.getName()).log(Level.SEVERE, null, ex);
