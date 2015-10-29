@@ -18,6 +18,7 @@ private Controller car;
 private intValue run_time; 
 private int max_speed = 255;
 private boolean mask[] = {true, true, true, true};
+private boolean auto;
 
 private int values_1[] = {255, 0, 255, 0};
 
@@ -37,8 +38,8 @@ private int values_2[] = {0, 255, 0, 255};
         car.setSpeed(max_speed);
         Random gen = new Random();
 
-        boolean loop = true;
-        while (loop){
+        auto = true;
+        while (auto){
             
             
             for(int i = 1; i <=4; i++){
@@ -81,6 +82,9 @@ private int values_2[] = {0, 255, 0, 255};
     
     }
     
+    public void stop(){
+        auto = false;
+    }
     //turns right until path is available
     public void resolve() throws InterruptedException{
         

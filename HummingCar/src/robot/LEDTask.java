@@ -38,8 +38,17 @@ private int LED_state;
             updateLEDs();
             
         }
+        
+        
             
         
+        
+    }
+    
+    public void stop(){
+        boolean mask[] = {true, true, true, true};
+        int intensities[] = {0,0,0,0};
+        car.setLEDs(mask, intensities);
         
     }
     
