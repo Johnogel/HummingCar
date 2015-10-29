@@ -16,6 +16,7 @@ public class CarTaskManager {
 private Controller car;
 private ExecutorService executor;
 private ArrayList<Thread> threads;
+private AutoControl auto;
 public static int LED = 0;
     public CarTaskManager(Controller car){
         this.car = car;
@@ -33,10 +34,26 @@ public static int LED = 0;
         
         leds.start();
         
-        //AutoControl auto = new AutoControl(car);
+        auto = new AutoControl(car);
         
         //auto.start();
         
+    }
+    
+    public Controller getCar(){
+        return car;
+    }
+    
+    public void startAuto() throws InterruptedException{
+        auto.start();
+    }
+    
+    public void toggleAuto() throws InterruptedException{
+        auto.toggleAuto();
+    }
+    
+    public void updateAuto() throws InterruptedException{
+        auto.updateAuto();
     }
     
     public void stop(int task){

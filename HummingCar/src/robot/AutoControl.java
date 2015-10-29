@@ -58,6 +58,27 @@ private int values_2[] = {0, 255, 0, 255};
    
         
     }
+    
+    public void updateAuto() throws InterruptedException{
+    
+        if (auto){
+
+
+            for(int i = 1; i <=4; i++){
+
+                //car.getRobot().setLED(i, gen.nextInt(255));
+            }
+
+            Thread.sleep(60l);
+            resolve();
+
+            run_time.increment();
+
+            System.out.println("Main Time: " + run_time.getValue());
+
+        }
+    }
+    
     public void resolveTurnRight() throws InterruptedException{
         //boolean clear = false;
         
@@ -82,8 +103,8 @@ private int values_2[] = {0, 255, 0, 255};
     
     }
     
-    public void stop(){
-        auto = false;
+    public void toggleAuto() throws InterruptedException{
+        auto = !auto;
     }
     //turns right until path is available
     public void resolve() throws InterruptedException{

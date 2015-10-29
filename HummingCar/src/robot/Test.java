@@ -22,6 +22,8 @@ import java.util.Random;
 public class Test{
 public static boolean loop;   
 private static String ttyConfig;
+public static int speed;
+
     public static void main(String args[]) throws InterruptedException{
         
         HummingbirdRobot hummingbird = new HummingbirdRobot();
@@ -40,79 +42,15 @@ private static String ttyConfig;
         //auto.start();
         
         CarTaskManager manager = new CarTaskManager(car);
-        manager.initialize();
+        //manager.initialize();
+        
+        UserController ui = new UserController(manager);
+        ui.initialize();
         
         
-        try {
-                setTerminalToCBreak();
-
-                int i=0;
-                while (true) {
-
-                        //System.out.println( ""+ i++ );
-
-                        if ( System.in.available() != 0 ) {
-                                int c = System.in.read();
-                                
-                                //escape
-                                if ( c == 0x1B ) {
-                                    System.out.println("OOGAALOOGAABOOGGAA");
-                                    break;
-                                }
-                                
-                                //w
-                                if (c == 0x77){
-                                    System.out.println("FORWARD");
-                                    car.setSpeed(200);
-                                }
-                                
-                                //d
-                                if (c == 0x64){
-                                    System.out.println("RIGHT");
-                                    car.turnRight();
-                                }
-                                
-                                //s
-                                if (c == 0x73){
-                                    System.out.println("REVERSE");
-                                    car.setSpeed(-200);
-                                }
-                                
-                                //a
-                                if (c == 0x61){
-                                    System.out.println("LEFT");
-                                    car.turnLeft();
-                                }
-                                
-                                //space
-                                if (c == 0x20){
-                                    System.out.println("STOP");
-                                    car.stop();
-                                }
-                                
-                                //i
-                                if (c == 0x69){
-                                    System.out.println("INTERRUPT");
-                                    manager.stop(CarTaskManager.LED);
-                                }
-                        }
-
-                } // end while
-            }
-            catch (IOException e) {
-                    System.err.println("IOException");
-            }
-            catch (InterruptedException e) {
-                    System.err.println("InterruptedException");
-            }
-            finally {
-                try {
-                    stty( ttyConfig.trim() );
-                 }
-                 catch (Exception e) {
-                     System.err.println("Exception restoring tty config");
-                 }
-            }
+        
+        
+        
         //hummingbird.setLED(4, 0);
         //car.turnRight();
         //Thread.sleep(1000000);
@@ -142,61 +80,6 @@ private static String ttyConfig;
         
 //        Timer t = new Timer(1000, listener);
 //        t.start();
-    }
-
-  
-    private static void setTerminalToCBreak() throws IOException, InterruptedException {
-
-        ttyConfig = stty("-g");
-
-        // set the console to be character-buffered instead of line-buffered
-        stty("-icanon min 1");
-
-        // disable character echoing
-        stty("-echo");
-    }
-
-    /**
-     *  Execute the stty command with the specified arguments
-     *  against the current active terminal.
-     */
-    private static String stty(final String args)
-                    throws IOException, InterruptedException {
-        String cmd = "stty " + args + " < /dev/tty";
-
-        return exec(new String[] {
-                    "sh",
-                    "-c",
-                    cmd
-                });
-    }
-
-    /**
-     *  Execute the specified command and return the output
-     *  (both stdout and stderr).
-     */
-    private static String exec(final String[] cmd)
-                    throws IOException, InterruptedException {
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-
-        Process p = Runtime.getRuntime().exec(cmd);
-        int c;
-        InputStream in = p.getInputStream();
-
-        while ((c = in.read()) != -1) {
-            bout.write(c);
-        }
-
-        in = p.getErrorStream();
-
-        while ((c = in.read()) != -1) {
-            bout.write(c);
-        }
-
-        p.waitFor();
-
-        String result = new String(bout.toByteArray());
-        return result;
     }
     
     
