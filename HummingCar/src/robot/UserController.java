@@ -21,8 +21,22 @@ public class UserController {
     private int speed;
     
    
-    public static int W = 0x77, D = 0x64, S = 0x73, A = 0x61, I = 0x69, SPACE = 0x20, ESCAPE = 0x1B, T = 0x74,
-                      UP = 0x26, DOWN = 0x28, RIGHT = 0x27, LEFT = 0x25;
+    public final static int 
+            W = 0x77,
+            D = 0x64, 
+            S = 0x73, 
+            A = 0x61, 
+            I = 0x69, 
+            SPACE = 0x20, 
+            ESCAPE = 0x1B, 
+            T = 0x74,          
+            UP = 0x26, 
+            DOWN = 0x28, 
+            RIGHT = 0x27, 
+            LEFT = 0x25, 
+            MINUS = 0x2d, 
+            PLUS = 0x2B, 
+            EQUAL = 0x3d;
 
     public UserController(CarTaskManager manager) {
         this.manager = manager;
@@ -35,77 +49,74 @@ public class UserController {
 
         try {
             setTerminalToCBreak();
-
+            
+            
+            boolean loop = true;
             int i = 0;
-            while (true) {
+            while (loop) {
 
                 //System.out.println( ""+ i++ );
                 manager.updateAuto();
                 if (System.in.available() != 0) {
                     int c = System.in.read();
 
-                    //escape
-                    
 
-                    //w
-                    if (c == W) {
-                        System.out.println("FORWARD");
-                        car.setSpeed(speed);
+                    switch (c){
+                        case W:
+                            System.out.println("FORWARD");
+                            car.setSpeed(speed);
+                            break;
+                            
+                        case D:
+                            System.out.println("RIGHT");
+                            car.turnRight();
+                            break;
+                            
+                        case A:
+                            System.out.println("LEFT");
+                            car.turnLeft();
+                            break;
+                            
+                        case S:
+                            System.out.println("REVERSE");
+                            car.setSpeed(-speed);
+                            break;
+                            
+                        case T:
+                            System.out.println("TOGGLE AUTO");
+                            manager.toggleAuto();
+                            break;
+                            
+                        case I:
+                            System.out.println("RIGHT");
+                            car.turnRight();
+                            break;
+                            
+                        case SPACE:
+                            System.out.println("STOP");
+                            car.stop();
+                            break;
+                            
+                        case EQUAL: case PLUS:
+                            System.out.println("SPEED UP");
+                            incrementSpeed();
+                            break;
+                        
+                        case MINUS:
+                            System.out.println("SLOW DOWN");
+                            decrementSpeed();
+                            break;
+                            
+                        case ESCAPE:
+                            System.out.println("OOGAALOGABOOGA");
+                            car.stop();
+                            loop = false;
+                            break;
+                            
+                        default:
+                            break;
                     }
-
-                    //d
-                    else if (c == D) {
-                        System.out.println("RIGHT");
-                        car.turnRight();
-                    }
-
-                    //s
-                    else if (c == S) {
-                        System.out.println("REVERSE");
-                        car.setSpeed(-speed);
-                    }
-
-                    //a
-                    else if (c == A) {
-                        System.out.println("LEFT");
-                        car.turnLeft();
-                    }
-
-                    //space
-                    else if (c == SPACE) {
-                        System.out.println("STOP");
-                        car.stop();
-                    }
-
-                    else if (c == T) {
-                        System.out.println("TOGGLE AUTO");
-                        manager.toggleAuto();
-                    }
-                    //i
-                    else if (c == I) {
-                        System.out.println("INTERRUPT");
-                        manager.stop(CarTaskManager.LED);
-                        break;
-                    }
-                    
-                    else if (c == UP){
-                        System.out.println("SPEED UP");
-                        incrementSpeed();
-                    }
-                    
-                    else if (c == DOWN){
-                        System.out.println("SPEED DOWN");
-                        decrementSpeed();
-                    }
-                    
-                    else if (c == ESCAPE) {
-                        System.out.println("OOGAALOOGAABOOGGAA");
-                        break;
-                    }
-                    
-                    else {
-                        car.stop();
-                    }
+                   
                 }
 
             } // end while
@@ -183,11 +194,26 @@ public class UserController {
         if (speed < 250) {
             speed += 5;
         }
+        
+        updateSpeed();
+        
     }
 
     public void decrementSpeed() {
         if (speed > 5) {
             speed -= 5;
+        }
+        updateSpeed();
+        
+    }
+    
+    private void updateSpeed(){
+        if(car.getState() == Controller.MOVING_FORWARD){
+            car.setSpeed(speed);
+        }
+        
+        else if(car.getState() == Controller.MOVING_BACKWARD){
+            car.setSpeed(-speed);
         }
     }
 

@@ -168,9 +168,11 @@ private boolean[] sensor_switches;
     
     public void turnRight(){
         
+        int turning_speed = 255;
+        
         System.out.println("(RIGHT TURN) Speed: " + speed);
         
-        int speeds[] = {-Math.abs(speed), Math.abs(speed)};
+        int speeds[] = {-Math.abs(turning_speed), Math.abs(turning_speed)};
         
         boolean motors[] = {true, true};
         
@@ -182,7 +184,9 @@ private boolean[] sensor_switches;
     
     public void turnLeft(){
         
-        int speeds[] = {Math.abs(speed), -Math.abs(speed)};
+        int turning_speed = 255;
+        
+        int speeds[] = {Math.abs(turning_speed), -Math.abs(turning_speed)};
         
         boolean motors[] = {true, true};
         
