@@ -21,8 +21,7 @@ import java.util.Random;
  */
 public class Test{
 public static boolean loop;   
-private static String ttyConfig;
-public static int speed;
+
 
     public static void main(String args[]) throws InterruptedException{
         
@@ -45,6 +44,7 @@ public static int speed;
         //manager.initialize();
         
         UserController ui = new UserController(manager);
+        
         ui.initialize();
         
         

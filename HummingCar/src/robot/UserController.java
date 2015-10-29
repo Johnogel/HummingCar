@@ -22,12 +22,12 @@ public class UserController {
     
    
     public static int W = 0x77, D = 0x64, S = 0x73, A = 0x61, I = 0x69, SPACE = 0x20, ESCAPE = 0x1B, T = 0x74,
-                      UP = 0x18, DOWN = 0x19, RIGHT = 0x1A, LEFT = 0x1B;
+                      UP = 0x26, DOWN = 0x28, RIGHT = 0x27, LEFT = 0x25;
 
     public UserController(CarTaskManager manager) {
         this.manager = manager;
         this.car = manager.getCar();
-        speed = 200;
+        speed = 255;
     }
 
     public void initialize() throws InterruptedException {
@@ -45,10 +45,7 @@ public class UserController {
                     int c = System.in.read();
 
                     //escape
-                    if (c == ESCAPE) {
-                        System.out.println("OOGAALOOGAABOOGGAA");
-                        break;
-                    }
+                    
 
                     //w
                     if (c == W) {
@@ -57,46 +54,57 @@ public class UserController {
                     }
 
                     //d
-                    if (c == D) {
+                    else if (c == D) {
                         System.out.println("RIGHT");
                         car.turnRight();
                     }
 
                     //s
-                    if (c == S) {
+                    else if (c == S) {
                         System.out.println("REVERSE");
                         car.setSpeed(-speed);
                     }
 
                     //a
-                    if (c == A) {
+                    else if (c == A) {
                         System.out.println("LEFT");
                         car.turnLeft();
                     }
 
                     //space
-                    if (c == SPACE) {
+                    else if (c == SPACE) {
                         System.out.println("STOP");
                         car.stop();
                     }
 
-                    if (c == T) {
+                    else if (c == T) {
                         System.out.println("TOGGLE AUTO");
                         manager.toggleAuto();
                     }
                     //i
-                    if (c == I) {
+                    else if (c == I) {
                         System.out.println("INTERRUPT");
                         manager.stop(CarTaskManager.LED);
                         break;
                     }
                     
-                    if (c == UP){
+                    else if (c == UP){
+                        System.out.println("SPEED UP");
                         incrementSpeed();
                     }
                     
-                    if (c == DOWN){
+                    else if (c == DOWN){
+                        System.out.println("SPEED DOWN");
                         decrementSpeed();
+                    }
+                    
+                    else if (c == ESCAPE) {
+                        System.out.println("OOGAALOOGAABOOGGAA");
+                        break;
+                    }
+                    
+                    else {
+                        car.stop();
                     }
                 }
 
