@@ -17,6 +17,7 @@ public class AutoControl{
 private Controller car;
 private intValue run_time; 
 private int max_speed = 255;
+private final double DELTA_SWEEP = 1.3;
 private boolean mask[] = {true, true, true, true};
 private boolean auto;
 
@@ -79,27 +80,21 @@ private int values_2[] = {0, 255, 0, 255};
         }
     }
     
-    public void resolveTurnRight() throws InterruptedException{
-        //boolean clear = false;
-        
-        turnRight();
-        
-//        while (!clear){
-//            
-//            if(!car.frontCollision()){
-//                car.setSpeed(max_speed);
-//                clear = true;
-//            }
-//            
-//            else if(!car.backCollision()){
-//                car.setSpeed(-max_speed);
-//                clear = true;
-//            }
-//            
-//            else{
-//                turnRight();
-//            }
-//        }
+    private void resolveTurnRight(long sweep) throws InterruptedException{
+        while(car.frontCollision())
+        {
+
+            turnRight(sweep);
+            sweep += DELTA_SWEEP;
+            //car.getRobot().setLEDs(mask, values_1);
+            
+            
+            if(car.frontCollision()){
+                turnLeft(sweep);
+                sweep += DELTA_SWEEP;
+                //car.getRobot().setLEDs(mask, values_2);
+            }
+        }
     
     }
     
@@ -110,32 +105,17 @@ private int values_2[] = {0, 255, 0, 255};
     public void resolve() throws InterruptedException{
         
         long sweep = 2;
-        
-        while(car.frontCollision())
-        {
-
-            turnRight(sweep);
-            sweep += 1.5;
-            //car.getRobot().setLEDs(mask, values_1);
-            
-            
-            if(car.frontCollision()){
-                turnLeft(sweep);
-                sweep += 1.5;
-                //car.getRobot().setLEDs(mask, values_2);
-            }
+ 
+        if (Math.random() < .50 ){
+            resolveTurnRight(sweep);
+        }
+        else{
+            resolveTurnLeft(sweep);
         }
         
         car.setSpeed(max_speed);
         
-        
-       
-        
-      
-        
-            
-            
-            
+
         //Thread.sleep(598l);
         
      
@@ -143,25 +123,19 @@ private int values_2[] = {0, 255, 0, 255};
     }
     
     //turns left until path is available
-    public void resolveTurnLeft() throws InterruptedException{
-        boolean clear = false;
-        
-        turnLeft();
-        
-        while (!clear){
+    private void resolveTurnLeft(long sweep) throws InterruptedException{
+        while(car.frontCollision())
+        {
+
+            turnLeft(sweep);
+            sweep += DELTA_SWEEP;
+            //car.getRobot().setLEDs(mask, values_1);
             
-            if(!car.frontCollision()){
-                car.setSpeed(max_speed);
-                clear = true;
-            }
             
-            else if(!car.backCollision()){
-                car.setSpeed(-max_speed);
-                clear = true;
-            }
-            
-            else{
-                turnLeft();
+            if(car.frontCollision()){
+                turnRight(sweep);
+                sweep += DELTA_SWEEP;
+                //car.getRobot().setLEDs(mask, values_2);
             }
         }
         
@@ -197,7 +171,7 @@ private int values_2[] = {0, 255, 0, 255};
    
     
 
-    public void turnRight(long sweep) throws InterruptedException{
+    private void turnRight(long sweep) throws InterruptedException{
         
         
         car.turnRight();
@@ -212,7 +186,7 @@ private int values_2[] = {0, 255, 0, 255};
         
     }
     
-    public void turnLeft(long sweep) throws InterruptedException{
+    private void turnLeft(long sweep) throws InterruptedException{
         
         
             
