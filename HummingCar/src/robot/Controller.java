@@ -61,6 +61,10 @@ private boolean[] sensor_switches;
         return car;
     }
     
+    public int getLightValue(){
+        return car.getSensorValues()[2];
+    }
+    
     public int getSpeed(){
         return speed;
     }

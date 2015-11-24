@@ -10,19 +10,29 @@ package robot;
  *
  * @author Johnogel
  */
-public class intValue {
+public class WrapperValue {
     private int value;
+    private boolean bool;
     
-    public intValue(int value){
+    
+    public WrapperValue(){
+        
+    }
+    
+    public void setIntValue(int value){
         this.value = value;
     }
     
-    public void setValue(int value){
-        this.value = value;
-    }
-    
-    public int getValue(){
+    public int getIntValue(){
         return value;
+    }
+    
+    public void setBooleanValue(boolean bool){
+        this.bool = bool;
+        
+    }
+    public boolean getBooleanValue(){
+        return bool;
     }
     
     public void increment(){

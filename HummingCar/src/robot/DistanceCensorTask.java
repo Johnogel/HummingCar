@@ -5,16 +5,20 @@
  */
 package robot;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Johnogel
  */
-public class DistanceCensorTask implements Runnable{
+public class DistanceCensorTask implements Runnable, Subject{
     
 private Controller car;
+private ArrayList<Observer> observers;
 
-    public DistanceCensorTask(Controller car){
+    public DistanceCensorTask(Controller car, ArrayList<Observer> observers){
         this.car = car;
+        this.observers = observers;
     }
 
     @Override
@@ -24,6 +28,18 @@ private Controller car;
             
         }
         
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+    }
+
+    @Override
+    public void notifyObservers(Object o) {
     }
     
 }

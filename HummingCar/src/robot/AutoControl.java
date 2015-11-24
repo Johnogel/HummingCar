@@ -13,9 +13,9 @@ import java.util.Random;
  *
  * @author Johnogel
  */
-public class AutoControl{
+public class AutoControl implements Observer{
 private Controller car;
-private intValue run_time; 
+private WrapperValue run_time; 
 private int max_speed = 255;
 private final double DELTA_SWEEP = 1.3;
 private boolean mask[] = {true, true, true, true};
@@ -28,7 +28,8 @@ private int values_2[] = {0, 255, 0, 255};
     public AutoControl(Controller car){
         
         this.car = car;
-        run_time = new intValue(0);
+        run_time = new WrapperValue();
+        run_time.setIntValue(0);
        
     }
     
@@ -53,7 +54,7 @@ private int values_2[] = {0, 255, 0, 255};
 
             run_time.increment();
             
-            System.out.println("Main Time: " + run_time.getValue());
+            System.out.println("Main Time: " + run_time.getIntValue());
             
         }
    
@@ -75,7 +76,7 @@ private int values_2[] = {0, 255, 0, 255};
 
             run_time.increment();
 
-            System.out.println("Main Time: " + run_time.getValue());
+            System.out.println("Main Time: " + run_time.getIntValue());
 
         }
     }
@@ -196,6 +197,11 @@ private int values_2[] = {0, 255, 0, 255};
         
         Thread.sleep(delay);
      
+    }
+
+    @Override
+    public void update(Object o) {
+        
     }
 
    
