@@ -99,7 +99,7 @@ private int values_2[] = {0, 255, 0, 255};
     
     }
     
-    public void toggleAuto() throws InterruptedException{
+    public void toggleAuto(){ 
         auto = !auto;
     }
     //turns right until path is available

@@ -5,37 +5,28 @@
  */
 package robot;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Johnogel
  */
-public class DistanceCensorTask implements Runnable, Subject{
-
+public class TempSensorTask implements Observer, Subject{
 private Controller car;
-private ArrayList<Observer> observers;
-
-    public DistanceCensorTask(Controller car, ArrayList<Observer> observers){
+private int delay;
+    public TempSensorTask(Controller car){
         this.car = car;
-        this.observers = observers;
+        this.delay = delay;
+    }
+    
+    @Override
+    public void update(Object o) {
     }
 
     @Override
-    public void run() {
-        
-        while(true){
-            
-        }
-        
+    public void registerObserver(Observer obs) {
     }
 
     @Override
-    public void registerObserver(Observer o) {
-    }
-
-    @Override
-    public void removeObserver(Observer o) {
+    public void removeObserver(Observer obs) {
     }
 
     @Override

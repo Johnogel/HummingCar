@@ -26,19 +26,22 @@ public static int LED = 0;
     
     public void initialize() throws InterruptedException{
         
+        auto = new AutoControl(car);
+        
         Observer led_1 = new LEDTask(car, 1);
         Observer led_2 = new LEDTask(car, 2);
         Observer led_3 = new LEDTask(car, 3);
         Observer led_4 = new LEDTask(car, 4);
-        
-        
+
         Subject light_sensor = new LightSensorTask(car, 200);
+        Subject temp_sensor = new TempSensorTask(car);
         
         Thread led_1_task = new Thread((Runnable)led_1);
         Thread led_2_task = new Thread((Runnable)led_2);
         Thread led_3_task = new Thread((Runnable)led_3);
         Thread led_4_task = new Thread((Runnable)led_4);
         Thread light_sensor_task = new Thread((Runnable) light_sensor);
+        
         threads.add(led_1_task);
         threads.add(led_2_task);
         threads.add(led_3_task);
@@ -56,7 +59,7 @@ public static int LED = 0;
         light_sensor.registerObserver(led_2);
         light_sensor.registerObserver(led_3);
         light_sensor.registerObserver(led_4);
-        auto = new AutoControl(car);
+        
         
         //auto.start();
         
