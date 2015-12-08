@@ -32,14 +32,18 @@ public static int LED = 0;
         Observer led_2 = new LEDTask(car, 2);
         Observer led_3 = new LEDTask(car, 3);
         Observer led_4 = new LEDTask(car, 4);
+        Observer cam = new CameraManager(auto);
 
         Subject light_sensor = new LightSensorTask(car, 200);
         Subject temp_sensor = new TempSensorTask(car);
+        
+        temp_sensor.registerObserver(cam);
         
         Thread led_1_task = new Thread((Runnable)led_1);
         Thread led_2_task = new Thread((Runnable)led_2);
         Thread led_3_task = new Thread((Runnable)led_3);
         Thread led_4_task = new Thread((Runnable)led_4);
+        
         Thread light_sensor_task = new Thread((Runnable) light_sensor);
         
         threads.add(led_1_task);
@@ -52,17 +56,12 @@ public static int LED = 0;
             task.start();
         }
         
-        
-        
-        
         light_sensor.registerObserver(led_1);
         light_sensor.registerObserver(led_2);
         light_sensor.registerObserver(led_3);
         light_sensor.registerObserver(led_4);
-        
-        
+       
         //auto.start();
-        
     }
     
     public Controller getCar(){
