@@ -10,7 +10,7 @@ import robot.interfaces.Subject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import robot.Controller;
+import robot.controllers.Controller;
 import robot.support.WrapperValue;
 
 /**

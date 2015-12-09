@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import robot.managers.CarTaskManager;
-import robot.Controller;
+import robot.controllers.Controller;
 
 /**
  *

@@ -8,7 +8,7 @@ package robot.tasks;
 import robot.interfaces.Observer;
 import robot.interfaces.Subject;
 import java.util.ArrayList;
-import robot.Controller;
+import robot.controllers.Controller;
 
 /**
  *

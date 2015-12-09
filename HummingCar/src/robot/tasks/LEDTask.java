@@ -5,7 +5,7 @@
  */
 package robot.tasks;
 
-import robot.Controller;
+import robot.controllers.Controller;
 import robot.support.WrapperValue;
 import robot.interfaces.Observer;
 

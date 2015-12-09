@@ -7,6 +7,7 @@ package robot;
  */
 
 
+import robot.controllers.Controller;
 import robot.managers.CarTaskManager;
 import robot.support.UserController;
 import edu.cmu.ri.createlab.hummingbird.HummingbirdRobot;

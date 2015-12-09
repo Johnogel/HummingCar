@@ -8,7 +8,7 @@ package robot.tasks;
 import robot.interfaces.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import robot.Controller;
+import robot.controllers.Controller;
 
 /**
  *

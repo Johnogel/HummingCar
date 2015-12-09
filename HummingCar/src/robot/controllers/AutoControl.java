@@ -1,4 +1,4 @@
-package robot;
+package robot.controllers;
 
 
 import robot.support.WrapperValue;

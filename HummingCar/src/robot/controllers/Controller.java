@@ -1,4 +1,4 @@
-package robot;
+package robot.controllers;
 
 
 import edu.cmu.ri.createlab.hummingbird.HummingbirdRobot;

@@ -9,7 +9,7 @@ import robot.support.ShellCommandManager;
 import robot.interfaces.Observer;
 import robot.interfaces.Subject;
 import java.util.ArrayList;
-import robot.AutoControl;
+import robot.controllers.AutoControl;
 
 /**
  *

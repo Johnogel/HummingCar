@@ -13,8 +13,8 @@ import robot.interfaces.Observer;
 import robot.interfaces.Subject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
-import robot.AutoControl;
-import robot.Controller;
+import robot.controllers.AutoControl;
+import robot.controllers.Controller;
 
 /**
  *
