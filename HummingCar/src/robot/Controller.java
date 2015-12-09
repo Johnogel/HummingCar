@@ -65,6 +65,10 @@ private boolean[] sensor_switches;
         return car.getSensorValues()[2];
     }
     
+    public int getTempHumValue(){
+        return car.getSensorValues()[3];
+    }
+    
     public int getSpeed(){
         return speed;
     }

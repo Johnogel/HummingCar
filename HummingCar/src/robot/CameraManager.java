@@ -5,6 +5,8 @@
  */
 package robot;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Johnogel
@@ -12,10 +14,12 @@ package robot;
 public class CameraManager implements Observer, Subject{
 private ShellCommandManager sh;
 private AutoControl auto;
+private ArrayList<Observer> observers;
 
     public CameraManager(AutoControl auto){
         sh = new ShellCommandManager();
         this.auto = auto;
+        observers = new ArrayList();
     }
     
     @Override
@@ -26,14 +30,20 @@ private AutoControl auto;
 
     @Override
     public void registerObserver(Observer obs) {
+        observers.add(obs);
+        
     }
 
     @Override
     public void removeObserver(Observer obs) {
+        observers.remove(obs);
     }
 
     @Override
     public void notifyObservers(Object o) {
+        for (Observer obj : observers){
+            obj.update(o);
+        }
     }
     
 }

@@ -33,11 +33,15 @@ public static int LED = 0;
         Observer led_3 = new LEDTask(car, 3);
         Observer led_4 = new LEDTask(car, 4);
         Observer cam = new CameraManager(auto);
+        
 
         Subject light_sensor = new LightSensorTask(car, 200);
         Subject temp_sensor = new TempSensorTask(car);
+        Subject ticker = new TickerTask(1000);
         
         temp_sensor.registerObserver(cam);
+        ticker.registerObserver((Observer)temp_sensor);
+        
         
         Thread led_1_task = new Thread((Runnable)led_1);
         Thread led_2_task = new Thread((Runnable)led_2);
@@ -45,12 +49,14 @@ public static int LED = 0;
         Thread led_4_task = new Thread((Runnable)led_4);
         
         Thread light_sensor_task = new Thread((Runnable) light_sensor);
+        Thread ticker_task = new Thread((Runnable) ticker);
         
         threads.add(led_1_task);
         threads.add(led_2_task);
         threads.add(led_3_task);
         threads.add(led_4_task);
         threads.add(light_sensor_task);
+        threads.add(ticker_task);
         
         for (Thread task : threads){
             task.start();
