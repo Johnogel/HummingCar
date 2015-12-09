@@ -35,7 +35,7 @@ public static int LED = 0;
         Observer cam = new CameraManager(auto);
         
 
-        Subject light_sensor = new LightSensorTask(car, 200);
+        Subject light_sensor = new LightSensorTask(car, 50);
         Subject temp_sensor = new TempSensorTask(car);
         Subject ticker = new TickerTask(1000);
         

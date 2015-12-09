@@ -24,8 +24,9 @@ private ArrayList<Observer> observers;
     
     @Override
     public void update(Object o) {
-        auto.toggleAuto();
+        //auto.toggleAuto();
         System.out.println(sh.executeCommand("raspistill -o cur_pos.jpg"));
+        //auto.toggleAuto();
     }
 
     @Override

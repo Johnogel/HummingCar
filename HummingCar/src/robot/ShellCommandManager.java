@@ -16,7 +16,7 @@ public class ShellCommandManager {
     
     public String executeCommand(String command) {
 
-    StringBuffer output = new StringBuffer();
+    StringBuilder output = new StringBuilder();
 
     Process p;
     try {
@@ -31,6 +31,7 @@ public class ShellCommandManager {
         }
 
     } catch (Exception e) {
+        System.out.println("AAAHHHHH");
         e.printStackTrace();
     }
 

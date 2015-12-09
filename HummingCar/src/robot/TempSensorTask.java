@@ -27,7 +27,7 @@ private int delay;
         
         WrapperValue value = new WrapperValue();
         value.setIntValue(car.getTempHumValue());
-        sh.executeCommand("cat \""+value.getIntValue()+"\" >> temp.txt ");
+        System.out.println(sh.executeCommand("cat '"+value.getIntValue()+"' > temp.txt "));
         notifyObservers(o);
     }
 

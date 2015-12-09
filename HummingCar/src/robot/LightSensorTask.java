@@ -35,7 +35,7 @@ private ArrayList<Observer> observers;
                 Logger.getLogger(LightSensorTask.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("LIGHT VALUE: "+car.getLightValue());
-            if (car.getLightValue() < 80 && !dark){
+            if (car.getLightValue() < 80){
                 dark = true;
                 WrapperValue wrap = new WrapperValue();
                 wrap.setIntValue(car.getLightValue());

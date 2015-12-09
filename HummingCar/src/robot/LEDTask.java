@@ -15,7 +15,7 @@ private int id;
     public LEDTask(Controller car, int id){
         this.car = car;
         this.id = id;
-        car.setLED(id, 200);
+        car.setLED(id, 50);
     }
 
     @Override
@@ -23,7 +23,8 @@ private int id;
         WrapperValue value = (WrapperValue) o;
         int final_value = 255 - value.getIntValue();
         if(value.getBooleanValue()){
-            car.setLED(id, 255);
+            
+            car.setLED(id, 90 + (160 - 2*value.getIntValue()));
         }
         else{
             car.setLED(id, 50);
