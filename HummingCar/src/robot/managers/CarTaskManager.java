@@ -44,11 +44,11 @@ public static int LED = 0;
         
 
         Subject light_sensor = new LightSensorTask(car, 50);
-        Subject temp_sensor = new TempSensorTask(car);
+        //Subject temp_sensor = new TempSensorTask(car);
         Subject ticker = new TickerTask(1000);
         
-        temp_sensor.registerObserver(cam);
-        ticker.registerObserver((Observer)temp_sensor);
+        //temp_sensor.registerObserver(cam);
+        ticker.registerObserver(cam);
         
         
         Thread led_1_task = new Thread((Runnable)led_1);
@@ -94,10 +94,8 @@ public static int LED = 0;
         auto.updateAuto();
     }
     
-    public void stop(int task){
-        
+    public void stop(int task){    
         threads.get(task).interrupt();
-        
     }
     
 }
