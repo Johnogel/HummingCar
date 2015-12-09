@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package robot;
+package robot.interfaces;
 
 /**
  *
  * @author Johnogel
  */
-public interface Observer {
-    
-    public void update(Object o);
-    
+public interface Subject {
+    public void registerObserver(Observer obs);
+    public void removeObserver(Observer obs);
+    public void notifyObservers(Object o);
 }

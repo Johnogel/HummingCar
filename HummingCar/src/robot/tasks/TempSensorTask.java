@@ -3,36 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package robot;
+package robot.tasks;
 
+import robot.interfaces.Observer;
+import robot.interfaces.Subject;
 import java.util.ArrayList;
+import robot.Controller;
+import robot.support.ShellCommandManager;
+import robot.support.WrapperValue;
 
 /**
  *
  * @author Johnogel
  */
-public class CameraManager implements Observer, Subject{
-private ShellCommandManager sh;
-private AutoControl auto;
+public class TempSensorTask implements Observer, Subject{
 private ArrayList<Observer> observers;
-
-    public CameraManager(AutoControl auto){
+private Controller car;
+private ShellCommandManager sh;
+private int delay;
+    public TempSensorTask(Controller car){
+        this.car = car;
         sh = new ShellCommandManager();
-        this.auto = auto;
         observers = new ArrayList();
     }
     
     @Override
     public void update(Object o) {
-        //auto.toggleAuto();
-        System.out.println(sh.executeCommand("raspistill -o cur_pos.jpg"));
-        //auto.toggleAuto();
+        
+        WrapperValue value = new WrapperValue();
+        value.setIntValue(car.getTempHumValue());
+        System.out.println(sh.executeCommand("cat '"+value.getIntValue()+"' > temp.txt "));
+        notifyObservers(o);
     }
 
     @Override
     public void registerObserver(Observer obs) {
         observers.add(obs);
-        
     }
 
     @Override
@@ -42,8 +48,8 @@ private ArrayList<Observer> observers;
 
     @Override
     public void notifyObservers(Object o) {
-        for (Observer obj : observers){
-            obj.update(o);
+        for (Observer obs : observers){
+            obs.update(o);
         }
     }
     

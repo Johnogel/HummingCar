@@ -3,10 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package robot;
+package robot.managers;
 
+import robot.tasks.LightSensorTask;
+import robot.tasks.TempSensorTask;
+import robot.tasks.LEDTask;
+import robot.tasks.TickerTask;
+import robot.interfaces.Observer;
+import robot.interfaces.Subject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
+import robot.AutoControl;
+import robot.Controller;
 
 /**
  *

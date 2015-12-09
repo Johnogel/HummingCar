@@ -3,32 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package robot;
+package robot.tasks;
 
+import robot.interfaces.Observer;
+import robot.interfaces.Subject;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Johnogel
  */
-public class TempSensorTask implements Observer, Subject{
+public class TickerTask implements Runnable, Subject{
+private int time, delay;
 private ArrayList<Observer> observers;
-private Controller car;
-private ShellCommandManager sh;
-private int delay;
-    public TempSensorTask(Controller car){
-        this.car = car;
-        sh = new ShellCommandManager();
+    public TickerTask(int delay){
+        time = 0;
+        this.delay = delay;
         observers = new ArrayList();
     }
     
     @Override
-    public void update(Object o) {
-        
-        WrapperValue value = new WrapperValue();
-        value.setIntValue(car.getTempHumValue());
-        System.out.println(sh.executeCommand("cat '"+value.getIntValue()+"' > temp.txt "));
-        notifyObservers(o);
+    public void run() {
+        while (true){
+            time++;
+            if(time % 30 == 0){
+                this.notifyObservers(this);
+            }
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TickerTask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override

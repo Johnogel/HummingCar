@@ -7,6 +7,8 @@ package robot;
  */
 
 
+import robot.managers.CarTaskManager;
+import robot.support.UserController;
 import edu.cmu.ri.createlab.hummingbird.HummingbirdRobot;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

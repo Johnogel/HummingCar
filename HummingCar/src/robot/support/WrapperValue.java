@@ -1,4 +1,4 @@
-package robot;
+package robot.support;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

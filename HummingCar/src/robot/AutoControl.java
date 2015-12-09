@@ -1,6 +1,8 @@
 package robot;
 
 
+import robot.support.WrapperValue;
+import robot.interfaces.Observer;
 import java.util.Random;
 
 /*
